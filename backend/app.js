@@ -7,6 +7,8 @@ const csurf = require('csurf');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 
+// Add routes to Express app
+const routes = require('./routes');
 
 // Create a variable isProduction that will be true if the environment
 // is in production by checking the `environment` key in the
@@ -14,14 +16,11 @@ const cookieParser = require('cookie-parser');
 const { environment } = require('./config');
 const isProduction = environment === 'production';
 
-
 // Initialize Express application
 const app = express();
 
-
 // Connect the `morgan` middleware for logging info about requests and responses
 app.use(morgan('dev'));
-
 
 // Add the `cookie-parser` middleware for parsing cookies and the `express.json`
 // middleware for parsing JSON bodies of requests with `Content-Type` of
@@ -53,3 +52,8 @@ app.use(
     }
   })
 );
+
+// Connect all the routes
+app.use(routes);
+
+module.exports = app;
