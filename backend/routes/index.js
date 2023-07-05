@@ -2,6 +2,11 @@
 const express = require('express');
 const router = express.Router();
 
+// Import api router file and connect it to the router
+const apiRouter = require('./api');
+
+router.use('/api', apiRouter);
+
 // Add a XSRF-TOKEN cookie
 router.get("/api/csrf/restore", (req, res) => {
   const csrfToken = req.csrfToken();
