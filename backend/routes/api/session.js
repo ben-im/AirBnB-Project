@@ -43,5 +43,11 @@ router.post('/', async (req, res, next) => {
   });
 });
 
+// DELETE /api/session
+router.delete('/', (_req, res) => {
+  res.clearCookie('token');
+  return res.json({ message: 'success' });
+});
+
 // Export Express router
 module.exports = router;
