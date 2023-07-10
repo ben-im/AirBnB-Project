@@ -3,14 +3,14 @@ const express = require('express');
 const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
-const { setTokenCookie, restoreUser } = require('../../utils/auth');
+const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
 const { User } = require('../../db/models');
 
 // Create Express router
 const router = express.Router();
 
 // GET /api/session
-router.get('/', async (req, res) => {
+router.get('/', requireAuth, async (req, res) => {
   const { user } = req;
   if (user) {
     const safeUser = {
